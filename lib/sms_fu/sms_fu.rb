@@ -43,6 +43,7 @@ module SMSFu
       email   = SMSFu.sms_address(number,carrier)
 
       if @delivery == :pony
+        require 'pony'
         Pony.mail({:to => email, :body => message, :from => from}.merge!(@pony_config))
       else
         SMSNotifier.send_sms(email, message, from).deliver
